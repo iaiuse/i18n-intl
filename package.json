@@ -1,0 +1,212 @@
+{
+  "name": "i18n-nexus",
+  "displayName": "i18n Nexus: AI-Powered Translation for next-intl",
+  "description": "i18n Nexus is your ultimate localization companion for next-intl projects...",
+  "version": "0.0.36",
+  "icon": "resources/logo.png",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iaiuse/i18n-intl.git"
+  },
+  "publisher": "iaiuse",
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Linters",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "localization",
+    "translation",
+    "next-intl",
+    "AI",
+    "machine learning",
+    "language",
+    "multilingual"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "i18n-nexus.translateFiles",
+        "title": "i18n Nexus: Translate Files"
+      },
+      {
+        "command": "i18n-nexus.configureModel",
+        "title": "i18n Nexus: Configure AI Model"
+      },
+      {
+        "command": "i18n-nexus.showConfig",
+        "title": "Show i18n Nexus Configuration"
+      },
+      {
+        "command": "i18n-nexus.translateCurrentFile",
+        "title": "i18n Nexus: Translate Current File"
+      }
+    ],
+    
+    "keybindings": [
+      {
+        "command": "i18n-nexus.toggleDebugOutput",
+        "key": "ctrl+alt+shift+d",
+        "mac": "cmd+alt+shift+d",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "i18n Nexus",
+      "properties": {
+        "i18nNexus.translationBatchSize": {
+          "type": "number",
+          "default": 500,
+          "description": "Number of keys to translate in each batch. Adjust based on the model's context window."
+        },
+        "i18nNexus.basePath": {
+          "type": "string",
+          "default": "messages",
+          "description": "Relative path to the messages folder"
+        },
+        "i18nNexus.baseLanguage": {
+          "type": "string",
+          "default": "zh-CN",
+          "enum": [
+            "en",
+            "zh-CN",
+            "zh-TW",
+            "es",
+            "fr",
+            "de",
+            "ja",
+            "ko",
+            "ar",
+            "pt",
+            "ru"
+          ],
+          "description": "Base language code (e.g., 'zh' for Chinese)"
+        },
+        "i18nNexus.targetLanguages": {
+          "type": "object",
+          "properties": {
+            "en": {
+              "type": "boolean",
+              "default": true,
+              "description": "🇺🇸 English"
+            },
+            "zh-CN": {
+              "type": "boolean",
+              "default": true,
+              "description": "🇨🇳 简体中文"
+            },
+            "zh-TW": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇹🇼 繁體中文"
+            },
+            "es": {
+              "type": "boolean",
+              "default": true,
+              "description": "🇪🇸 Español"
+            },
+            "fr": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇫🇷 Français"
+            },
+            "de": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇩🇪 Deutsch"
+            },
+            "ja": {
+              "type": "boolean",
+              "default": true,
+              "description": "🇯🇵 日本語"
+            },
+            "ko": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇰🇷 한국어"
+            },
+            "ar": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇸🇦 العربية"
+            },
+            "pt": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇵🇹 Português"
+            },
+            "ru": {
+              "type": "boolean",
+              "default": false,
+              "description": "🇷🇺 Русский"
+            }
+          },
+          "additionalProperties": false,
+          "description": "Select target languages for translation"
+        },
+        "i18nNexus.llmProvider": {
+          "type": "string",
+          "default": "openai",
+          "enum": [
+            "openai",
+            "gemini",
+            "claude",
+            "openai-compatible"
+          ],
+          "description": "Selected LLM provider"
+        },
+        "i18nNexus.llmModel": {
+          "type": "string",
+          "default": "gpt-3.5-turbo",
+          "description": "Specific model to use for the selected LLM provider"
+        },
+        "i18nNexus.llmApiUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1/chat/completions",
+          "description": "API URL for the selected LLM provider"
+        },
+        "i18nNexus.llmApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API Key for the selected LLM provider"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.92.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.17.1",
+    "axios": "^1.7.7",
+    "groq-sdk": "^0.6.1",
+    "openai": "^4.57.0"
+  }
+}
